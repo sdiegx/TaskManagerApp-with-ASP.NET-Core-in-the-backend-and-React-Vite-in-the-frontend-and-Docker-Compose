@@ -1,0 +1,38 @@
+# ASP.NET Core
+bin/
+obj/
+binaries/
+*.user
+*.suo
+*.app
+*.exe
+*.dll
+*.pdb
+*.dll.config
+*.json
+
+# Visual Studio Code
+.vscode/
+
+# JetBrains Rider
+.idea/
+
+# React Vite
+node_modules/
+/dist/
+/.npm
+/npm-debug.log
+/yarn-error.log
+
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.suo
+*.sln.docstates
+
+# .NET Scaffolding
+ScaffoldingReadMe.txt
+
+# Environment Variables
+.env

@@ -1,0 +1,41 @@
+﻿@model IEnumerable<BackendAdmin.Models.TareasProyecto>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.IdProyectoNavigation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdTareaNavigation)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdProyectoNavigation.IdProyecto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdTareaNavigation.IdTarea)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.IdTareaProyecto">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.IdTareaProyecto">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.IdTareaProyecto">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

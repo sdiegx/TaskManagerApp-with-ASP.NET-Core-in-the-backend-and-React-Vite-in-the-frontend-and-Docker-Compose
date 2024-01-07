@@ -1,0 +1,54 @@
+version: '3'
+
+services:
+  backend:
+    build:
+      context: ./DevelopmentTeamsApp
+      dockerfile: Dockerfile
+    ports:
+      - "5000:80"
+    depends_on:
+      - sql-server
+    env_file:
+      - .env
+    environment:
+      - CONNECTION_STRING=${CONNECTION_STRING}
+
+  backend-admin:
+    build:
+      context: ./BackendAdmin
+      dockerfile: Dockerfile
+    ports:
+      - "5001:80"
+    depends_on:
+      - sql-server
+    env_file:
+      - .env
+    environment:
+      - CONNECTION_STRING=${CONNECTION_STRING}
+
+  frontend:
+    build:
+      context: ./ClienteDevelopment
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+
+  sql-server:
+    image: mcr.microsoft.com/mssql/server:latest
+    env_file:
+      - .env
+    environment:
+      - SA_PASSWORD=${DB_PASSWORD}
+      - ACCEPT_EULA=Y
+      - MSSQL_PID=Express
+    ports:
+      - "1433:1433"
+    volumes:
+      - ./Scripts:/scripts  # Monta el directorio de scripts al contenedor
+    command:
+      - /bin/sh
+      - -c
+      - sleep 20s && /opt/mssql-tools/bin/sqlcmd -S ${SERVER} -U ${DB_ID} -P ${DB_PASSWORD} -d ${DB_NAME} -i /scripts/init.sql & /opt/mssql/bin/sqlservr
